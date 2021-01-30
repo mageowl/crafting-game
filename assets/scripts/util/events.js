@@ -2,28 +2,43 @@ import { debug } from "../util/debug.js";
 
 class EventBoard {
 	constructor() {
+		/** @type {Object<string,Function[]>} */
 		this.eventList = {};
-		this.onceList = {};
 		this.starList = [];
-		this.onceStarList = [];
 	}
 
-	watch(event, callback) {
+	/**
+	 * Adds listener to event board
+	 *
+	 * @param {string} event Event to attach callback to.
+	 * @param {Function} callback Callback to event.
+	 * @returns {number} ID of callback. Used in `EventBoard.off(id)`
+	 * @memberof EventBoard
+	 */
+	on(event, callback) {
 		if (event != "*") {
 			if (!this.eventList[event]) this.eventList[event] = [callback];
 			else this.eventList[event].push(callback);
+
+			return Object.values(this.eventList).flat().length;
 		} else {
 			this.starList.push(callback);
 		}
 	}
 
-	once(event, callback) {
-		if (debug.logOnceListeners) console.log(event);
-		if (event != "*") {
-			if (!this.onceList[event]) this.onceList[event] = [callback];
-			else this.onceList[event].push(callback);
-		} else {
-			this.onceStarList.push(callback);
+	off(id) {
+		let eventNameFound = false;
+		Object.values(this.eventList).forEach((eventCallbacks, eventIndex) => {
+			let eventName = Object.keys(this.eventList);
+			eventCallbacks.forEach((_, callbackIndex) => {
+				if (callbackIndex + eventIndex == id) {
+					delete this.eventList[eventName][callbackIndex];
+					eventNameFound = eventName;
+				}
+			});
+		});
+		if (eventNameFound) {
+			this.eventList[eventNameFound].filter((v) => v != null);
 		}
 	}
 
@@ -38,31 +53,18 @@ class EventBoard {
 				});
 			return true;
 		} else {
-			let eventFound = false;
 			this.starList.forEach((cb) => cb(event));
 
 			if (this.eventList[event]) {
 				this.eventList[event].forEach((cb) => {
 					cb(...data);
 				});
-				eventFound = true;
-			}
-
-			if (this.onceList[event]) {
-				this.onceList[event].filter((cb) => {
-					cb(...data);
-				});
-
-				if (debug.logOnceListeners) console.log(this.onceList[event]);
-
-				eventFound = true;
-			}
-
-			return eventFound;
+				return true;
+			} else return false;
 		}
 	}
 }
 
 export const globalEventBoard = new EventBoard();
 
-if (debug.globalEventPosts) globalEventBoard.watch("*", console.log);
+if (debug.logGlobalEventPosts) globalEventBoard.on("*", console.log);

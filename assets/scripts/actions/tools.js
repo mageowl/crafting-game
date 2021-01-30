@@ -23,7 +23,11 @@ let tables = {
 		},
 		{
 			item: "coal",
-			weight: 8
+			weight: 9
+		},
+		{
+			item: "ironBar",
+			weight: 7
 		}
 	]
 };

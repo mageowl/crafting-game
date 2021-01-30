@@ -58,7 +58,7 @@ const data = {
 	woodenShovel: {
 		icon: "wooden_shovel",
 		name: "Wooden Shovel (Right Click)",
-		properties: ["noReference", "rightClick:dig(0)"]
+		properties: ["noReference", "rightClick:dig(1)"]
 	},
 	dirt: {
 		icon: "dirt",
@@ -96,17 +96,21 @@ const data = {
 	woodenPickaxe: {
 		icon: "wooden_pickaxe",
 		name: "Wooden Pickaxe (Right Click)",
-		properties: ["rightClick:mine(0)"]
+		properties: ["rightClick:mine(1)"]
 	},
 	stonePickaxe: {
 		icon: "stone_pickaxe",
 		name: "Stone Pickaxe (Right Click)",
-		properties: ["rightClick:mine(2)"]
+		properties: ["rightClick:mine(3)"]
 	},
 	stoneShovel: {
-		icon: "stone_pickaxe",
-		name: "Stone Pickaxe (Right Click)",
-		properties: ["rightClick:mine(2)"]
+		icon: "stone_shovel",
+		name: "Stone Shovel (Right Click)",
+		properties: ["rightClick:dig(3)"]
+	},
+	coal: {
+		icon: "coal",
+		name: "Coal"
 	}
 };
 

@@ -176,7 +176,7 @@ const recipes = {
 		},
 		result: "woodenShovel"
 	},
-	woodenShovel: {
+	stoneShovel: {
 		size: Size.SHAPE_1X3,
 		// prettier-ignore
 		recipe: [
@@ -185,8 +185,8 @@ const recipes = {
 			"/"
 		],
 		itemMap: {
-			"/": "stone_block",
-			"#": "log"
+			"/": "stick",
+			"#": "stoneBlock"
 		},
 		result: "stoneShovel"
 	},

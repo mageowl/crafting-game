@@ -4,6 +4,7 @@ import { getInventory } from "../items/slot.js";
 import { deepCopy } from "../util/deepCopy.js";
 import { makeReference } from "../actions/reference.js";
 import { globalEventBoard } from "../util/events.js";
+import { debug } from "../util/debug.js";
 import "../actions/tools.js";
 
 let craftingGrid = [[], [], []];
@@ -11,7 +12,7 @@ let row = 0;
 
 const gridItemChange = () => {
 	if (result.item.id != "none") result.removeItem();
-	Object.values(recipes).forEach((recipeObj) => {
+	Object.values(recipes).forEach((recipeObj, i) => {
 		let compiledRecipe = [];
 		if (recipeObj.size != 1) {
 			recipeObj.recipe.forEach((row, rowN) => {
@@ -56,6 +57,8 @@ const gridItemChange = () => {
 					section.push(...new Array(distance).fill(["none", "none", "none"]));
 			}
 
+			if (debug.logCraftingCheck)
+				console.log(recipeObj.recipe, recipeObj.itemMap, compiledRecipe);
 			if (JSON.stringify(section) == JSON.stringify(compiledTable)) {
 				result.addItem(new Item(recipeObj.result), true, false);
 				return true;

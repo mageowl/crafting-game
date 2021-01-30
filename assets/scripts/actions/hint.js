@@ -11,7 +11,7 @@ const hintEl = document.querySelector("#bottom #hint");
  * @export
  * @param {string} text Text to set.
  * @param {Object} condition Condition to close hint.
- * @param {("craft"|"obtain"|"time")} condition.type Type of condition.
+ * @param {("craft"|"use"|"time"|"obtain")} condition.type Type of condition.
  * @param {(import("../crafting/recipes.js").ItemID)} condition.item Item to check.
  * @param {(import("../crafting/recipes.js").ItemID)} [condition.time] Delay until hint is hidden in milliseconds. Only used if type is 'time'.
  */
@@ -27,27 +27,33 @@ export function setHint(text, condition, callback) {
 	hintEl.style.display = "block";
 
 	if (condition) {
+		let listenerID;
+
 		switch (condition.type) {
 			case "craft":
-				globalEventBoard.once("craftItem", (craftedItem) => {
+				listenerID = globalEventBoard.on("craftItem", (craftedItem) => {
 					if (condition.item == craftedItem) {
 						if (condition.next) {
 							condition.next();
 						} else {
 							hideHint();
 						}
+
+						globalEventBoard.off(listenerID);
 					}
 				});
 				break;
 
 			case "use":
-				globalEventBoard.once("itemUse", (item) => {
+				listenerID = globalEventBoard.on("itemUse", (item) => {
 					if (condition.item == item) {
 						if (condition.next) {
 							condition.next();
 						} else {
 							hideHint();
 						}
+
+						globalEventBoard.off(listenerID);
 					}
 				});
 				break;
@@ -91,8 +97,21 @@ setHint(
 										item: "magicBook",
 										next() {
 											setHint(
-												"Nice! Play around for a little while see what you can find...",
-												{ type: "time", time: 5000 }
+												"Nice! Play around for a little while and see what you can find... hint: **somebody** (aka Dave) put in Minecraft recipes.",
+												{ type: "time", time: 7000 }
+											);
+
+											let listenerID = globalEventBoard.on(
+												"craftItem",
+												(craftedItem) => {
+													if (craftedItem == "woodenPickaxe") {
+														setHint(
+															"A pickaxe?!?! You weren't suposed to get that yet! **DAVE!!** -pause- **YES THERE'S A PROBLEM! HE GOT A PICKAXE!** -pause- **NO IT'S NOT A DIAMOND PICKAXE! IT'S WOODEN!** Oh, well. I suppose you should mine some rocks..."
+														);
+
+														globalEventBoard.off(listenerID);
+													}
+												}
 											);
 										}
 									}

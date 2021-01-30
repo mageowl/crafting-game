@@ -1,6 +1,7 @@
 body {
 	font-family: "Courier New", Courier, monospace;
 	margin: 0;
+	user-select: none;
 }
 
 .item {
@@ -49,22 +50,18 @@ item-slot {
 	width: max-content;
 	max-width: 450px;
 	line-height: 32px;
+	padding-left: 10px;
 }
 
-#hint span.item {
-	font-weight: bold;
-	color: #397e39;
-	position: initial;
-}
-
-.inventory {
+item-slot.inventory {
 	width: 100vw;
 	height: 30vh;
 	display: block;
 	margin: 0;
+	text-align: center;
 }
 
-.inventory .item {
+item-slot.inventory .item {
 	position: initial !important;
 	margin: 1px;
 	display: inline-block;
