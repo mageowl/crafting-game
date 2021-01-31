@@ -186,7 +186,7 @@ const recipes = {
 		],
 		itemMap: {
 			"/": "stick",
-			"#": "stone"
+			o: "stone"
 		},
 		result: "stoneShovel"
 	},
