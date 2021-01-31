@@ -152,13 +152,13 @@ const recipes = {
 		size: Size.SHAPE_3X3,
 		// prettier-ignore
 		recipe: [
-			["#", "#", "#"],
+			["o", "o", "o"],
 			[" ", "/", " "],
 			[" ", "/", " "]
 		],
 		itemMap: {
 			"/": "stick",
-			"#": "stoneBlock"
+			"#": "stone"
 		},
 		result: "stonePickaxe"
 	},
@@ -180,13 +180,13 @@ const recipes = {
 		size: Size.SHAPE_1X3,
 		// prettier-ignore
 		recipe: [
-			"#",
+			"o",
 			"/",
 			"/"
 		],
 		itemMap: {
 			"/": "stick",
-			"#": "stoneBlock"
+			"#": "stone"
 		},
 		result: "stoneShovel"
 	},

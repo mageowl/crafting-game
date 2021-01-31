@@ -41,7 +41,9 @@ export function setHint(text, condition, callback) {
 
 						globalEventBoard.off(listenerID);
 					}
+					console.log(craftedItem);
 				});
+				console.log(listenerID);
 				break;
 
 			case "use":
@@ -106,7 +108,25 @@ setHint(
 												(craftedItem) => {
 													if (craftedItem == "woodenPickaxe") {
 														setHint(
-															"A pickaxe?!?! You weren't suposed to get that yet! **DAVE!!** -pause- **YES THERE'S A PROBLEM! HE GOT A PICKAXE!** -pause- **NO IT'S NOT A DIAMOND PICKAXE! IT'S WOODEN!** Oh, well. I suppose you should mine some rocks..."
+															"A $woodenPickaxe$?!?! You weren't suposed to get that yet! **DAVE!!** -pause- **YES THERE'S A PROBLEM! HE GOT A PICKAXE!** -pause- **NO IT'S NOT A $diamondPickaxe$! IT'S WOODEN!** -pause- Oh, well. I suppose you should mine some rocks...",
+															{
+																type: "obtain",
+																item: "stone",
+																next() {
+																	setHint(
+																		"Amazing! Now if you can remember that pickaxe recipe...",
+																		{
+																			type: "craft",
+																			item: "stonePickaxe",
+																			next() {
+																				setHint(
+																					"Perfect! Now all we need is a $stoneShovel$. (Put a stone on a long stick.)"
+																				);
+																			}
+																		}
+																	);
+																}
+															}
 														);
 
 														globalEventBoard.off(listenerID);

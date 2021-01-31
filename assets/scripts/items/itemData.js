@@ -111,6 +111,11 @@ const data = {
 	coal: {
 		icon: "coal",
 		name: "Coal"
+	},
+	diamondPickaxe: {
+		icon: "diamond_pickaxe",
+		name: "Diamond Pickaxe (Right Click)",
+		properties: ["rightClick:dig(8)"]
 	}
 };
 

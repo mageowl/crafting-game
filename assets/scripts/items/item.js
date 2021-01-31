@@ -19,7 +19,7 @@ export class Item {
 		 */
 		this.id = id;
 		this.data = itemData[id];
-		if (debug.itemData) {
+		if (debug.logItemData) {
 			console.groupCollapsed(this.data.name);
 			console.log("ID:", this.id);
 			console.log("Metadata:", this.data);

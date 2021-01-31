@@ -17,10 +17,17 @@ class EventBoard {
 	 */
 	on(event, callback) {
 		if (event != "*") {
-			if (!this.eventList[event]) this.eventList[event] = [callback];
-			else this.eventList[event].push(callback);
+			let id =
+				Object.values(this.eventList).length > 0
+					? Object.values(this.eventList)
+							.flat()
+							.map((v) => v.id)
+							.reduce((a, b) => (a < b ? b : a)) + 1
+					: 0;
+			if (!this.eventList[event]) this.eventList[event] = [{ callback, id }];
+			else this.eventList[event].push({ callback, id });
 
-			return Object.values(this.eventList).flat().length;
+			return id;
 		} else {
 			this.starList.push(callback);
 		}
@@ -28,18 +35,20 @@ class EventBoard {
 
 	off(id) {
 		let eventNameFound = false;
-		Object.values(this.eventList).forEach((eventCallbacks, eventIndex) => {
-			let eventName = Object.keys(this.eventList);
-			eventCallbacks.forEach((_, callbackIndex) => {
-				if (callbackIndex + eventIndex == id) {
-					delete this.eventList[eventName][callbackIndex];
+		Object.values(this.eventList).forEach((eventCallbacks, i) => {
+			let eventName = Object.keys(this.eventList)[i];
+			eventCallbacks.forEach((obj, i) => {
+				if (obj.id == id) {
+					delete this.eventList[eventName][i];
 					eventNameFound = eventName;
 				}
 			});
 		});
+
 		if (eventNameFound) {
 			this.eventList[eventNameFound].filter((v) => v != null);
-		}
+			return true;
+		} else return false;
 	}
 
 	post(event, ...data) {
@@ -48,16 +57,16 @@ class EventBoard {
 				console.warn("Trying to post '*'. Purging event board...");
 			Object.values(this.eventList)
 				.flat()
-				.forEach((cb) => {
-					cb(...data);
+				.forEach((obj) => {
+					obj.callback(...data);
 				});
 			return true;
 		} else {
 			this.starList.forEach((cb) => cb(event));
 
 			if (this.eventList[event]) {
-				this.eventList[event].forEach((cb) => {
-					cb(...data);
+				this.eventList[event].forEach((obj) => {
+					obj.callback(...data);
 				});
 				return true;
 			} else return false;
