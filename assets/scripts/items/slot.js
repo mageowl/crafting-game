@@ -1,3 +1,5 @@
+import { EventBoard } from "../util/events";
+
 export const getInventory = () => {
 	return Array.from(document.getElementsByTagName("item-slot")).filter(
 		(value) => value.inventory
@@ -18,6 +20,7 @@ export class HTMLItemSlotElement extends HTMLElement {
 	}
 
 	items = [];
+	eventBoard = new EventBoard();
 
 	get item() {
 		return this.items[0] || { id: "none" };
@@ -74,7 +77,10 @@ export class HTMLItemSlotElement extends HTMLElement {
 		this.items.push(item);
 		this.appendChild(item.element);
 
-		if (triggerEvents) this.itemdropevent(item);
+		if (triggerEvents) {
+			this.itemdropevent(item);
+			this.eventBoard.post("itemDrop", item.id, item.data);
+		}
 	}
 
 	removeItem() {

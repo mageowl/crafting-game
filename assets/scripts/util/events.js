@@ -1,6 +1,6 @@
 import { debug } from "../util/debug.js";
 
-class EventBoard {
+export class EventBoard {
 	constructor() {
 		/** @type {Object<string,Function[]>} */
 		this.eventList = {};

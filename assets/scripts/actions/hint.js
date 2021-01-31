@@ -2,6 +2,7 @@ import { Item } from "../items/item.js";
 import itemData from "../items/itemData.js";
 import { globalEventBoard } from "../util/events.js";
 import { debug } from "../util/debug.js";
+import { getInventory } from "../items/slot.js";
 
 const hintEl = document.querySelector("#bottom #hint");
 
@@ -59,6 +60,19 @@ export function setHint(text, condition, callback) {
 					}
 				});
 				break;
+
+			case "obtain":
+				listenerID = getInventory().eventBoard.on("itemDrop", (item) => {
+					if (condition.item == item) {
+						if (condition.next) {
+							condition.next();
+						} else {
+							hideHint();
+						}
+
+						getInventory().eventBoard.off(listenerID);
+					}
+				});
 
 			case "time":
 				setTimeout(() => {
