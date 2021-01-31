@@ -73,6 +73,7 @@ export function setHint(text, condition, callback) {
 						getInventory().eventBoard.off(listenerID);
 					}
 				});
+				break;
 
 			case "time":
 				setTimeout(() => {
@@ -93,7 +94,7 @@ function hideHint() {
 setHint(
 	"Hello! Welcome to **Crafting Game**. Your first task is to grow a $flower$.",
 	{
-		type: "craft",
+		type: "obtain",
 		item: "flower",
 		next() {
 			setHint("Great! Maybe add more $fertilizer$...", {

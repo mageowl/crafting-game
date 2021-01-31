@@ -1,4 +1,4 @@
-import { EventBoard } from "../util/events";
+import { EventBoard } from "../util/events.js";
 
 export const getInventory = () => {
 	return Array.from(document.getElementsByTagName("item-slot")).filter(

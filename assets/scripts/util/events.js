@@ -18,7 +18,7 @@ export class EventBoard {
 	on(event, callback) {
 		if (event != "*") {
 			let id =
-				Object.values(this.eventList).length > 0
+				Object.values(this.eventList).flat().length > 0
 					? Object.values(this.eventList)
 							.flat()
 							.map((v) => v.id)
