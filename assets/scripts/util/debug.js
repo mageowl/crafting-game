@@ -10,6 +10,4 @@
 /**
  * @type {DebugConfig}
  */
-export const debug = {
-	logGlobalEventPosts: true
-};
+export const debug = {};

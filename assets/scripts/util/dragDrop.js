@@ -1,4 +1,4 @@
-let dragging = null
+let dragging = null;
 
 /**
  * @callback dropHandler
@@ -6,136 +6,138 @@ let dragging = null
  * @param {HTMLElement} [object] The orginal object.
  */
 
-let defaultOptions = { transisions: false }
+let defaultOptions = { transisions: false };
 
 /**
  * @function draggable Set up draggable object.
  * @param {HTMLElement} object The object to set up dragging for.
  * @param {dropHandler} handler Callback for drop.
  * @param {object} [options = defaultOptions] Options for drag and drop sequence
- * @param {boolean} [options.transisions = false] Use css transisions to animate the movement 
+ * @param {boolean} [options.transisions = false] Use css transisions to animate the movement
  */
 export const draggable = (object, handler, options = defaultOptions) => {
-	object.droppable = true
-	object.dropHandler = handler
-	object.style.cursor = "grab"
+	object.droppable = true;
+	object.dropHandler = handler;
+	object.style.cursor = "grab";
 	object.onmousedown = function (event) {
+		if (object.droppable == false || event.button == 2) return;
 
-		if (object.droppable == false || event.button == 2) return
+		let top = object.style.top;
+		let left = object.style.left;
+		let noParentLeft = object.getBoundingClientRect().left;
+		let noParentTop = object.getBoundingClientRect().top;
 
-		let top = object.style.top
-		let left = object.style.left
-		let noParentLeft = object.getBoundingClientRect().left
-		let noParentTop = object.getBoundingClientRect().top
-		
-		let parent = object.parentNode
+		let parent = object.parentNode;
 
-		let shiftX = event.clientX - noParentLeft
-		let shiftY = event.clientY - noParentTop
+		let shiftX = event.clientX - noParentLeft;
+		let shiftY = event.clientY - noParentTop;
 
-		dragging = object
+		dragging = object;
 
-		object.style.position = "absolute"
-		object.style.cursor = "grabbing"
-		if (options.transisions) object.style.transform = "scale(1.2)"
-		object.style.zIndex = 1
-		document.body.append(object)
+		object.style.position = "absolute";
+		object.style.cursor = "grabbing";
+		if (options.transisions) object.style.transform = "scale(1.2)";
+		object.style.zIndex = 1;
+		document.body.append(object);
 
-		moveAt(event.pageX, event.pageY)
+		moveAt(event.pageX, event.pageY);
 
 		// moves the object at (pageX, pageY) coordinates
 		// taking initial shifts into account
 		function moveAt(pageX, pageY) {
-			object.style.left = pageX - shiftX + "px"
-			object.style.top = pageY - shiftY + "px"
+			object.style.left = pageX - shiftX + "px";
+			object.style.top = pageY - shiftY + "px";
 		}
 
 		function onMouseMove(event) {
-			moveAt(event.pageX, event.pageY)
+			moveAt(event.pageX, event.pageY);
 		}
 
 		// move the object on mousemove
-		document.addEventListener("mousemove", onMouseMove)
+		document.addEventListener("mousemove", onMouseMove);
 
-		let currentDrop = null
+		let currentDrop = null;
 
 		// Drop the object, remove unneeded handlers
-		function drop (event) {
-			object.style.transform = "none"
-			object.style.zIndex = -1
-			object.style.cursor = "grab"
+		function drop(event) {
+			object.style.transform = "none";
+			object.style.zIndex = -1;
+			object.style.cursor = "grab";
 
-			dragging = null
+			dragging = null;
 
 			// Check for object to drop onto.
-			let elemBelow = document.elementFromPoint(event.clientX, event.clientY)
-			object.style.zIndex = 0
+			let elemBelow = document.elementFromPoint(event.clientX, event.clientY);
+			object.style.zIndex = 0;
 
-			let dropBelow = elemBelow.closest('.drop')
+			let dropBelow = elemBelow.closest(".drop");
 
-			if (options.transisions) object.style.transition = "top 500ms, left 500ms, transform 400ms"
+			if (options.transisions)
+				object.style.transition = "top 500ms, left 500ms, transform 400ms";
 			if (dropBelow != currentDrop) {
-				object.droppable = false
-				currentDrop = dropBelow
+				object.droppable = false;
+				currentDrop = dropBelow;
 				if (currentDrop) {
-					handler(currentDrop, object)
-					object.style.left = currentDrop.getBoundingClientRect().left
-					object.style.top = currentDrop.getBoundingClientRect().top
-					object.dropped = true
-					let left = currentDrop.style.left
-					let top = parseInt(currentDrop.style.top) + 198
+					handler(currentDrop, object);
+					object.style.left = currentDrop.getBoundingClientRect().left;
+					object.style.top = currentDrop.getBoundingClientRect().top;
+					object.dropped = true;
+					let left = currentDrop.style.left;
+					let top = parseInt(currentDrop.style.top) + 198;
 					setTimeout(() => {
-						if (options.transisions) object.style.transition = "transform 400ms"
-						object.style.left = left
-						object.style.top = top
+						if (options.transisions)
+							object.style.transition = "transform 400ms";
+						object.style.left = left;
+						object.style.top = top;
 						if (options.transisions) {
 							setTimeout(() => {
-								object.droppable = true
-								object.style.zIndex = "unset"
-							}, 300)
+								object.droppable = true;
+								object.style.zIndex = "unset";
+							}, 300);
 						}
-					}, 1001)
+					}, 1001);
 					if (!options.transisions) {
-						object.droppable = true
-						object.style.zIndex = "unset"
+						object.droppable = true;
+						object.style.zIndex = "unset";
 					}
 				}
 			} else {
-				object.style.left = parseInt(noParentLeft) + 0	
-				object.style.top = noParentTop
-				setTimeout(() => {
-					if (options.transisions) object.style.transition = "transform 400ms"
-					parent.appendChild(object)
-					object.style.left = left
-					object.style.top = top
-				}, 501)
+				object.style.left = parseInt(noParentLeft) + 0;
+				object.style.top = noParentTop;
+				if (options.transisions)
+					setTimeout(() => {
+						object.style.transition = "transform 400ms";
+						parent.appendChild(object);
+						object.style.left = left;
+						object.style.top = top;
+					}, 501);
+				else parent.appendChild(object);
 			}
 
-			document.removeEventListener("mousemove", onMouseMove)
-			object.onmouseup = null
-
+			document.removeEventListener("mousemove", onMouseMove);
+			object.onmouseup = null;
 		}
 
-		object.drop = drop
-		object.onmouseup = drop
-	}
+		object.drop = drop;
+		object.onmouseup = drop;
+	};
 
 	object.ondragstart = function () {
-		return false
-	}
-}
+		return false;
+	};
+};
 
 export const undraggable = (object) => {
-	object.droppable = false
-	object.onmousedown = null
-}
+	object.droppable = false;
+	object.onmousedown = null;
+};
 
 window.oncontextmenu = (e) => {
-	if (!e.metaKey) e.preventDefault()
-}
+	if (!e.metaKey) e.preventDefault();
+};
 
 document.onmouseleave = (e) => {
 	if (dragging) {
-		dragging.drop({ clientX: 0, clientY: 0 })
+		dragging.drop({ clientX: 0, clientY: 0 });
 	}
-}
+};
