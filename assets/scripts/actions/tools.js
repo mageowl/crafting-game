@@ -19,7 +19,7 @@ let tables = {
 	pickaxe: [
 		{
 			item: "rock",
-			weight: 10
+			weight: 11
 		},
 		{
 			item: "coal",

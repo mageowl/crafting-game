@@ -158,7 +158,7 @@ const recipes = {
 		],
 		itemMap: {
 			"/": "stick",
-			"#": "stone"
+			o: "rock"
 		},
 		result: "stonePickaxe"
 	},
@@ -186,7 +186,7 @@ const recipes = {
 		],
 		itemMap: {
 			"/": "stick",
-			o: "stone"
+			o: "rock"
 		},
 		result: "stoneShovel"
 	},
@@ -201,6 +201,33 @@ const recipes = {
 			o: "rock"
 		},
 		result: "stoneBlock"
+	},
+	ironPickaxe: {
+		size: Size.SHAPE_3X3,
+		recipe: [
+			["I", "I", "I"],
+			[" ", "/", " "],
+			[" ", "/", " "]
+		],
+		itemMap: {
+			I: "ironBar",
+			"/": "stick"
+		},
+		result: "ironPickaxe"
+	},
+	ironShovel: {
+		size: Size.SHAPE_1X3,
+		// prettier-ignore
+		recipe: [
+			"I",
+			"/",
+			"/"
+		],
+		itemMap: {
+			"/": "stick",
+			I: "ironBar"
+		},
+		result: "ironShovel"
 	}
 };
 

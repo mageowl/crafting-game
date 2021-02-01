@@ -116,6 +116,20 @@ const data = {
 		icon: "diamond_pickaxe",
 		name: "Diamond Pickaxe (Right Click)",
 		properties: ["rightClick:dig(8)"]
+	},
+	ironBar: {
+		icon: "iron_ingot",
+		name: "Iron Bar"
+	},
+	ironPickaxe: {
+		icon: "iron_pickaxe",
+		name: "Iron Pickaxe (Right Click)",
+		properties: ["rightClick:mine(5)"]
+	},
+	ironShovel: {
+		icon: "iron_shovel",
+		name: "Iron Pickaxe (Right Click)",
+		properties: ["rightClick:dig(5)"]
 	}
 };
 

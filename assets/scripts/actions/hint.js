@@ -94,7 +94,7 @@ function hideHint() {
 setHint(
 	"Hello! Welcome to **Crafting Game**. Your first task is to grow a $flower$.",
 	{
-		type: "obtain",
+		type: "craft",
 		item: "flower",
 		next() {
 			setHint("Great! Maybe add more $fertilizer$...", {
@@ -126,7 +126,7 @@ setHint(
 															"A $woodenPickaxe$?!?! You weren't suposed to get that yet! **DAVE!!** -pause- **YES THERE'S A PROBLEM! HE GOT A PICKAXE!** -pause- **NO IT'S NOT A $diamondPickaxe$! IT'S WOODEN!** -pause- Oh, well. I suppose you should mine some rocks...",
 															{
 																type: "obtain",
-																item: "stone",
+																item: "rock",
 																next() {
 																	setHint(
 																		"Amazing! Now if you can remember that pickaxe recipe...",
