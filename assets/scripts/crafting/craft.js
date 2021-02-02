@@ -26,10 +26,13 @@ const gridItemChange = () => {
 		}
 
 		let compiledTable = [];
+		let itemTable = [];
 		craftingGrid.forEach((row, rowN) => {
 			compiledTable.push([]);
+			itemTable.push([]);
 			row.forEach((slot) => {
 				compiledTable[rowN].push(slot.item.id);
+				itemTable[rowN].push(slot.item);
 			});
 		});
 
@@ -98,8 +101,15 @@ const gridItemChange = () => {
 				recipeObj.recipe.forEach((item) => {
 					let found = false;
 					tableItems = 0;
-					compiledTable.forEach((row) => {
-						if (row.includes(item)) found = true;
+					compiledTable.forEach((row, i) => {
+						if (
+							row.includes(item) ||
+							(item.startsWith("is:") &&
+								itemTable[i].find((itemObj) =>
+									itemObj.is ? itemObj.is(item.split(":")[1]) : false
+								))
+						)
+							found = true;
 						tableItems += row.filter((item) => item != "none").length;
 					});
 					if (!found) containsItems = false;

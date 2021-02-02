@@ -57,6 +57,12 @@ export class Item {
 		};
 	}
 
+	is(tag) {
+		return (this.data.properties ?? []).find(
+			(prop) => prop.split(":")[0] == tag
+		);
+	}
+
 	/**
 	 * @property {HTMLDivElement} element The element repersenting the item.
 	 */

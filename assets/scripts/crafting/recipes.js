@@ -228,6 +228,28 @@ const recipes = {
 			I: "ironBar"
 		},
 		result: "ironShovel"
+	},
+	furnace: {
+		size: Size.SHAPE_3X3,
+		recipe: [
+			["#", "#", "#"],
+			["#", " ", "#"],
+			["#", "#", "#"]
+		],
+		itemMap: {
+			"#": "stoneBlock"
+		},
+		result: "furnace"
+	},
+	lightFurnace: {
+		size: Size.SHAPELESS,
+		recipe: ["furnace", "is:fuelSource"],
+		result: "litFurnace"
+	},
+	glass: {
+		size: Size.SHAPELESS,
+		recipe: ["litFurnace", "sand", "sand"],
+		result: "glass"
 	}
 };
 

@@ -75,7 +75,7 @@ const data = {
 	wheat: {
 		icon: "wheat",
 		name: "Wheat",
-		properties: ["tag:lure.cow"]
+		properties: ["lure:cow"]
 	},
 	flower: {
 		icon: "poppy",
@@ -110,7 +110,8 @@ const data = {
 	},
 	coal: {
 		icon: "coal",
-		name: "Coal"
+		name: "Coal",
+		properties: ["fuelSource"]
 	},
 	diamondPickaxe: {
 		icon: "diamond_pickaxe",
@@ -130,6 +131,19 @@ const data = {
 		icon: "iron_shovel",
 		name: "Iron Pickaxe (Right Click)",
 		properties: ["rightClick:dig(5)"]
+	},
+	furnace: {
+		icon: "furnace",
+		name: "Furnace"
+	},
+	litFurnace: {
+		icon: "furnace_lit",
+		name: "Furnace",
+		properties: ["keep:furnace"]
+	},
+	glass: {
+		icon: "glass_block",
+		name: "Glass"
 	}
 };
 
