@@ -135,7 +135,66 @@ setHint(
 																			item: "stonePickaxe",
 																			next() {
 																				setHint(
-																					"Perfect! Now all we need is a $stoneShovel$. (Put a stone on a long stick.)"
+																					"Perfect! Now all we need is a $stoneShovel$... (Put a $rock$ on a long $stick$.)",
+																					{
+																						type: "craft",
+																						item: "stoneShovel",
+																						next() {
+																							setHint(
+																								"...and we can make some $glass$. hint: You'll need $sand$.",
+																								{
+																									type: "obtain",
+																									item: "sand",
+																									next() {
+																										setHint(
+																											"Now we'll need some $stoneBlock$s... hint: 2x2 square of $rock$s.",
+																											{
+																												type: "craft",
+																												item: "stoneBlock",
+																												next() {
+																													setHint(
+																														"...for a $furnace$. And while your at it you can use that $coal$ of yours to light it.",
+																														{
+																															type: "craft",
+																															item:
+																																"litFurnace",
+																															next() {
+																																setHint(
+																																	"Good. Now in go 2 sand...",
+																																	{
+																																		type:
+																																			"craft",
+																																		item:
+																																			"glass",
+																																		next() {
+																																			setHint(
+																																				"And we have glass. Great! I'm thirsty. I don't suppose you might be able to get me some $water$?",
+																																				{
+																																					type:
+																																						"craft",
+																																					item:
+																																						"waterBottle",
+																																					next() {
+																																						setHint(
+																																							"Nevermind, Dave got it."
+																																						);
+																																					}
+																																				}
+																																			);
+																																		}
+																																	}
+																																);
+																															}
+																														}
+																													);
+																												}
+																											}
+																										);
+																									}
+																								}
+																							);
+																						}
+																					}
 																				);
 																			}
 																		}
