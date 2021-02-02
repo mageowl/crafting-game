@@ -160,7 +160,7 @@ setHint(
 																																"litFurnace",
 																															next() {
 																																setHint(
-																																	"Good. Now in go 2 sand...",
+																																	"Good. Now in go 2 $sand$...",
 																																	{
 																																		type:
 																																			"craft",
@@ -168,7 +168,7 @@ setHint(
 																																			"glass",
 																																		next() {
 																																			setHint(
-																																				"And we have glass. Great! I'm thirsty. I don't suppose you might be able to get me some $water$?",
+																																				"And we have $glass$. Great! I'm thirsty. I don't suppose you might be able to get me some $waterBottle$?",
 																																				{
 																																					type:
 																																						"craft",
