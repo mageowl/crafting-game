@@ -250,6 +250,23 @@ const recipes = {
 		size: Size.SHAPELESS,
 		recipe: ["litFurnace", "sand", "sand"],
 		result: "glass"
+	},
+	glassBottle: {
+		size: Size.SHAPE_3X3,
+		recipe: [
+			[" ", " ", " "],
+			["*", " ", "*"],
+			[" ", "*", " "]
+		],
+		itemMap: {
+			"*": "glass"
+		},
+		result: "glassBottle"
+	},
+	ironBar: {
+		size: Size.SHAPELESS,
+		recipe: ["litFurnace", "ironOre"],
+		result: "ironBar"
 	}
 };
 

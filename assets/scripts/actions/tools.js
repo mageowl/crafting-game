@@ -26,7 +26,7 @@ let tables = {
 			weight: 9
 		},
 		{
-			item: "ironBar",
+			item: "ironOre",
 			weight: 7
 		}
 	]

@@ -144,6 +144,10 @@ const data = {
 	glass: {
 		icon: "glass_block",
 		name: "Glass"
+	},
+	ironOre: {
+		icon: "iron_ore",
+		name: "Iron Ore"
 	}
 };
 

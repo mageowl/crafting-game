@@ -5,7 +5,7 @@ const inventory = getInventory();
 
 [
 	new Item("magicBook", inventory).enableRightClick(),
-	new Item("sand", inventory),
-	new Item("litFurnace", inventory),
-	new Item("sand", inventory)
+	new Item("grass", inventory),
+	new Item("fertilizer", inventory),
+	new Item("fertilizer", inventory)
 ];
